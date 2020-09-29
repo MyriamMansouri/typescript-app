@@ -29,7 +29,7 @@ const Map: React.FC = () => {
           '© Data <a href="http://openstreetmap.org/copyright/">OpenStreetMap</a> · © Map <a href="http://mapbox.com">Mapbox</a>',
       }
     );
-
+ 
     map.addGeoJSONTiles(
       "https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json"
     );
