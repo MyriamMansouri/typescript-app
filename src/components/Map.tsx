@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 const Map: React.FC = () => {
   const [mapState, setMapState] = React.useState({
-    center: [51.517327, -0.120005],
-    zoom: 15,
+    center: [-73.56, 45.50]
   });
 
   React.useEffect(() => {
@@ -13,7 +12,7 @@ const Map: React.FC = () => {
     process.env.REACT_APP_MAPBOX_TOKEN;
     const map = new mapboxgl.Map({
       style: "mapbox://styles/mapbox/light-v10",
-      center: [-10.0066, 40.7135],
+      center: mapState.center,
       zoom: 15.5,
       pitch: 45,
       bearing: -17.6,
@@ -76,12 +75,12 @@ const Map: React.FC = () => {
 
   return (
     <div className="mapWrapper">
-      <LeafletMap className="map" id="map"></LeafletMap>
+      <MapContainer className="map" id="map"></MapContainer>
     </div>
   );
 };
 
-const LeafletMap = styled.div`
+const MapContainer = styled.div`
   height: 100vh;
   background-color: "grey";
 `;
