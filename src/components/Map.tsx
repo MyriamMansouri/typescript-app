@@ -1,19 +1,21 @@
 import React from "react";
+import mapboxgl from "mapbox-gl";
 import styled from "styled-components";
 
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
+
 const Map: React.FC = () => {
-  const [mapState, setMapState] = React.useState({
-    center: [-73.56, 45.50]
+  const [mapState] = React.useState({
+    lng: -73.56,
+    lat: 45.5,
+    zoom: 15.5,
   });
 
   React.useEffect(() => {
-    const mapboxgl = (window as any).mapboxgl;
-    mapboxgl.accessToken =
-    process.env.REACT_APP_MAPBOX_TOKEN;
     const map = new mapboxgl.Map({
       style: "mapbox://styles/mapbox/light-v10",
-      center: mapState.center,
-      zoom: 15.5,
+      center: [mapState.lng, mapState.lat],
+      zoom: mapState.zoom,
       pitch: 45,
       bearing: -17.6,
       container: "map",
@@ -24,11 +26,16 @@ const Map: React.FC = () => {
     // data from OpenStreetMap.
     map.on("load", function () {
       // Insert the layer beneath any symbol layer.
-      const layers = map.getStyle().layers;
+      const layers = map.getStyle().layers!;
 
       let labelLayerId;
-      for (var i = 0; i < layers.length; i++) {
-        if (layers[i].type === "symbol" && layers[i].layout["text-field"]) {
+      for (let i = 0; i < layers.length; i++) {
+
+
+        if (
+          layers[i].type === "symbol" /*&&
+          layers[i]?.layout["text-field"]*/
+        ) {
           labelLayerId = layers[i].id;
           break;
         }
